@@ -1,6 +1,6 @@
 /* ============================================================================
- * 00. 文字列の逆順
- * 文字列"stressed"の文字を逆に（末尾から先頭に向かって）並べた文字列を得よ．
+ * 01. 「パタトクカシーー」
+ * 「パタトクカシーー」という文字列の1,3,5,7文字目を取り出して連結した文字列を得よ．
  * ========================================================================= */
 #include <iostream>
 #include <algorithm>
@@ -8,7 +8,8 @@
 
 int main(void)
 {
-	std::string str = "stressed";
-	std::reverse(str.begin(), str.end()); 
-	std::cout << str << std::endl;
+	std::locale::global(std::locale(""));
+	std::wstring str = L"パタトカクシーー";
+
+	std::wcout << str[0] << str[2] << str[4] << str[6] << std::endl;
 }
