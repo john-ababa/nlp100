@@ -23,12 +23,18 @@ std::string getGBR()
 	return "";
 }
 
+void searchMediaFile(const std::string& text, const std::string& file)
+{
+	for (size_t end, pos = 0; (pos = text.find(file, pos)) != std::string::npos; pos = end) {
+		end = text.find("|", pos);
+		std::cout << text.substr(pos+file.length(), end-pos-file.length()) << std::endl;
+	}
+}
+
 int main(void)
 {
 	const std::string text = getGBR();
 
-	for (size_t end, pos = 0; (pos = text.find("[[File:", pos)) != std::string::npos; pos = end) {
-		end = text.find("|", pos);
-		std::cout << text.substr(pos+7, end-pos-7) << std::endl;
-	}
+	searchMediaFile(text, "[[File:");
+	searchMediaFile(text, "[[ファイル:");
 }
