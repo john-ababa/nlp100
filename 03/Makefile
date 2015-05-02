@@ -4,7 +4,7 @@
 CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -std=c++11
 LDLIB = -L$(HOME)/loacal/lib -lmecab
-PROGRAM = 30 31 32 33 34 35
+PROGRAM = 30 31 32 33 34 35 36
 all: $(PROGRAM)
 
 30: 30.o common.o
@@ -19,6 +19,8 @@ all: $(PROGRAM)
 34.o: 34.cpp
 35: 35.o common.o
 35.o: 35.cpp
+36: 36.o common.o
+36.o: 36.cpp
 common.o: common.cpp
 
 ## 適当
