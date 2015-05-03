@@ -15,11 +15,11 @@
 #include <rapidxml/rapidxml.hpp>
 
 class Morph {
+public:
 	const std::string surface;
 	const std::string base;
 	const std::string pos;
 	const std::string pos1;
-public:
 	Morph(const std::string& _surface, const std::string& _base, const std::string& _pos, const std::string& _pos1)
 		: surface(_surface), base(_base), pos(_pos), pos1(_pos1) { ; }
 };
@@ -55,16 +55,24 @@ std::vector<Morph> parseTok(rapidxml::xml_node<> *node)
 int main(void)
 {
 	std::shared_ptr<CaboCha::Parser> parser = std::shared_ptr<CaboCha::Parser>(CaboCha::createParser("-f3"));
+	int count = 0;
 
 	std::ifstream ifs("neko.txt");
 	for (std::string line; std::getline(ifs, line); ) {
-		const std::string cabocha_xml = parser->parseToString(line.c_str());
+		if (++count == 3) {
+			const std::string cabocha_xml = parser->parseToString(line.c_str());
 
-		rapidxml::xml_document<> doc;
-		doc.parse<0>((char*)cabocha_xml.c_str());
-		for (rapidxml::xml_node<> *p = doc.first_node()->first_node(); p; p = p->next_sibling()) {
-			std::vector<Morph> morph = parseTok(p);
-			// TODO: 3文目の形態素列？
+			std::vector<std::vector<Morph>> morphs;
+			rapidxml::xml_document<> doc;
+			doc.parse<0>((char*)cabocha_xml.c_str());
+			for (rapidxml::xml_node<> *p = doc.first_node()->first_node(); p; p = p->next_sibling())
+				morphs.push_back(parseTok(p));
+
+			for (auto itr = morphs.begin(); itr != morphs.end(); ++itr)
+				for (auto jtr = itr->begin(); jtr != itr->end(); ++jtr)
+					std::cout << jtr->surface << " ";
+			std::cout << std::endl;
+			break;
 		}
 	}
 }
