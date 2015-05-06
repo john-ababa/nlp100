@@ -4,7 +4,7 @@
 CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -std=c++11
 LDLIB = -L$(HOME)/loacal/lib -lcabocha
-PROGRAM = 40 41 42 43 44 45 46 47
+PROGRAM = 40 41 42 43 44 45 46 47 48
 all: $(PROGRAM)
 
 40: 40.o
@@ -23,6 +23,8 @@ all: $(PROGRAM)
 46.o: 46.cpp
 47: 47.o
 47.o: 46.cpp
+48: 48.o
+48.o: 48.cpp
 
 ## 適当
 clean:
